@@ -1,3 +1,3 @@
-# Getting-Started
+# Getting Started
 
-The beginning of an awesome article...
+SDK coming soon
