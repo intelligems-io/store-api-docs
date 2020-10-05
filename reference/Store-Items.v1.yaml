@@ -7,15 +7,15 @@ servers:
   - url: 'https://dev.intelligems.io'
     description: Dev
 paths:
-  /store/item:
+  /store/items:
     get:
       summary: Get Items
       tags: []
-      responses: {}
       operationId: get-store-items
       parameters:
         - schema:
             type: string
+            default: some-user-id
           in: query
           name: userId
           description: User ID for your user to whom we will show the list of items.
@@ -29,5 +29,6 @@ components:
       name: Authorization
       type: apiKey
       in: header
+      description: ''
 security:
   - Authorization: []
