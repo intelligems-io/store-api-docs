@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: Store
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'https://dev.intelligems.io'
+    description: Dev
+paths:
+  /store/item?userId=:
+    get:
+      summary: Get Items
+      tags: []
+      responses: {}
+      operationId: get-store-items
+      parameters:
+        - schema:
+            type: string
+          in: query
+    parameters: []
+  '/store/item?userId={userId}':
+    get:
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: userId
+          description: user id for your user to whom we will show items.
+components:
+  schemas: {}
+  securitySchemes:
+    Authorization:
+      name: Authorization
+      type: apiKey
+      in: header
+security:
+  - Authorization: []
