@@ -22,6 +22,12 @@ paths:
           required: true
       description: ''
     parameters: []
+  /health:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-health
 components:
   schemas: {}
   securitySchemes:
