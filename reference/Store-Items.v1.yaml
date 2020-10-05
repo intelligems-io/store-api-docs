@@ -2,12 +2,12 @@ openapi: 3.0.0
 info:
   title: Store
   version: '1.0'
-  description: ''
+  description: 'This is the IntelliGems Store API  '
 servers:
   - url: 'https://dev.intelligems.io'
     description: Dev
 paths:
-  /store/item?userId=:
+  /store/item:
     get:
       summary: Get Items
       tags: []
@@ -17,15 +17,11 @@ paths:
         - schema:
             type: string
           in: query
-    parameters: []
-  '/store/item?userId={userId}':
-    get:
-      parameters:
-        - schema:
-            type: string
-          in: query
           name: userId
-          description: user id for your user to whom we will show items.
+          description: User ID for your user to whom we will show the list of items.
+          required: true
+      description: ''
+    parameters: []
 components:
   schemas: {}
   securitySchemes:
