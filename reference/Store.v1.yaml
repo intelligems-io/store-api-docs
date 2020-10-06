@@ -123,6 +123,13 @@ paths:
               properties:
                 currencies:
                   $ref: '#/components/schemas/Currency'
+            examples:
+              Example:
+                value:
+                  currencies:
+                    id: string
+                    name: string
+                    icon: 'https://yourdomain.com/static/img/currency.jpg'
       tags:
         - Configure API
     delete:
@@ -188,6 +195,44 @@ paths:
                     $ref: '#/components/schemas/Experiment'
               required:
                 - experiments
+            examples:
+              Example:
+                value:
+                  experiments:
+                    - id: ab-test-1
+                      name: Sword Price Test
+                      active: true
+                      variants:
+                        - name: Lower Prices
+                          percentage: 33
+                          isControl: false
+                          overrides:
+                            - itemId: bronze-sword
+                              property: price
+                              value: 125
+                            - itemId: gold-sword
+                              property: price
+                              value: 425
+                        - name: Higher Prices
+                          percentage: 33
+                          isControl: false
+                          overrides:
+                            - itemId: bronze-sword
+                              property: price
+                              value: 175
+                            - itemId: gold-sword
+                              property: price
+                              value: 475
+                        - name: Control
+                          percentage: 34
+                          isControl: true
+                          overrides:
+                            - itemId: bronze-sword
+                              property: price
+                              value: 150
+                            - itemId: gold-sword
+                              property: price
+                              value: 450
       tags:
         - Configure API
     delete:
@@ -225,7 +270,19 @@ components:
     Item:
       title: Item
       type: object
-      x-examples: {}
+      x-examples:
+        Example Item 1:
+          id: bronze-sword
+          name: Bronze Sword
+          price: 150
+          currencyId: coin
+          visible: true
+        Example Item 2:
+          id: gold-sword
+          name: Golden Sword
+          price: 450
+          currencyId: coin
+          visible: false
       properties:
         id:
           type: string
@@ -292,7 +349,15 @@ components:
                   - name
               value:
                 type: string
-      x-examples: {}
+      x-examples:
+        Variant A:
+          name: Variant A
+          percentage: 33
+          isControl: false
+          overrides:
+            - itemId: bronze-sword
+              property: price
+              value: 125
       x-tags:
         - Models
       required:
@@ -314,6 +379,42 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Variant'
+      x-examples:
+        Example AB Test:
+          id: ab-test-1
+          name: Sword Price Test
+          active: true
+          variants:
+            - name: Lower Prices
+              percentage: 33
+              isControl: false
+              overrides:
+                - itemId: bronze-sword
+                  property: price
+                  value: 125
+                - itemId: gold-sword
+                  property: price
+                  value: 425
+            - name: Higher Prices
+              percentage: 33
+              isControl: false
+              overrides:
+                - itemId: bronze-sword
+                  property: price
+                  value: 175
+                - itemId: gold-sword
+                  property: price
+                  value: 475
+            - name: Control
+              percentage: 34
+              isControl: true
+              overrides:
+                - itemId: bronze-sword
+                  property: price
+                  value: 150
+                - itemId: gold-sword
+                  property: price
+                  value: 450
   securitySchemes:
     Authorization:
       name: Authorization
