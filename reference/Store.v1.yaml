@@ -1,0 +1,313 @@
+openapi: 3.0.0
+info:
+  title: Store
+  version: '1.0'
+  description: 'This is the IntelliGems Store API  '
+servers:
+  - url: 'https://dev.intelligems.io'
+    description: Dev
+paths:
+  /store/items:
+    get:
+      summary: Get Items
+      tags:
+        - mobile
+      operationId: get-store-items
+      parameters:
+        - schema:
+            type: string
+            default: some-user-id
+          in: query
+          name: userId
+          description: User ID for your user to whom we will show the list of items.
+        - schema:
+            type: string
+            default: AUTH_TOKEN
+          in: header
+          name: Authorization
+      description: ''
+      responses:
+        '200':
+          description: OK
+    parameters: []
+  /store/configure/items:
+    post:
+      summary: ''
+      operationId: post-store-configure-items
+      responses:
+        '200':
+          description: OK
+      description: Configure items in the store.
+      parameters:
+        - schema:
+            type: string
+            default: AUTH_TOKEN
+          in: header
+          name: Authorization
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Item'
+            examples: {}
+      tags:
+        - configure
+    delete:
+      summary: ''
+      operationId: delete-store-configure-items
+      parameters:
+        - schema:
+            type: string
+            default: AUTH_TOKEN
+          in: header
+          name: Authorization
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+        description: ''
+      description: Deletes an item from the store.
+  /store/configure/currencies:
+    post:
+      summary: ''
+      operationId: post-store-configure-currency
+      responses:
+        '200':
+          description: OK
+      description: Configure or add a currency
+      parameters:
+        - schema:
+            type: string
+            default: AUTH_TOKEN
+          in: header
+          name: Authorization
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currencies:
+                  $ref: '#/components/schemas/Currency'
+      tags:
+        - configure
+    delete:
+      summary: ''
+      operationId: delete-store-configure-currency
+      parameters:
+        - schema:
+            type: string
+            default: AUTH_TOKEN
+          in: header
+          name: Authorization
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+      responses:
+        '200':
+          description: OK
+      description: 'Delete a currency. In order to delete, it cannot be referenced by any items.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+        description: ''
+    parameters: []
+  /store/configure/experiments:
+    post:
+      summary: ''
+      operationId: post-store-configure-experiments
+      responses:
+        '200':
+          description: OK
+      description: Add or modify experiments
+      parameters:
+        - schema:
+            type: string
+            default: AUTH_TOKEN
+          in: header
+          name: Authorization
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                experiments:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Experiment'
+              required:
+                - experiments
+      tags:
+        - configure
+    delete:
+      summary: ''
+      operationId: delete-store-configure-experiments
+      responses:
+        '200':
+          description: OK
+      description: Delete an experiment
+      parameters:
+        - schema:
+            type: string
+            default: AUTH_TOKEN
+          in: header
+          name: Authorization
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+              required:
+                - id
+components:
+  schemas:
+    Item:
+      title: Item
+      type: object
+      x-examples: {}
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          description: default price to be listed
+        currencyId:
+          type: string
+          description: currency ID
+        visible:
+          type: boolean
+          description: 'default: true'
+      required:
+        - id
+        - name
+        - price
+        - visible
+    Currency:
+      title: Currency
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        icon:
+          type: string
+          example: 'https://yourdomain.com/static/img/currency.jpg'
+      required:
+        - id
+        - name
+      x-examples:
+        Example Currency:
+          id: coin
+          name: Coins
+          icon: 'https://yourdomain.com/static/img/currency.jpg'
+    Experiment:
+      title: Experiment
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+    Variant:
+      title: Variant
+      type: object
+      properties:
+        name:
+          type: string
+        percentage:
+          type: integer
+        isControl:
+          type: boolean
+        overrides:
+          type: array
+          items:
+            type: object
+            properties:
+              itemId:
+                type: string
+              property:
+                type: string
+                enum:
+                  - price
+                  - name
+              value:
+                type:
+                  - string
+                  - number
+                  - integer
+      required:
+        - name
+        - percentage
+      x-examples: {}
+  securitySchemes:
+    Authorization:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''
+security:
+  - Authorization: []
+tags:
+  - name: configure
+  - name: mobile
