@@ -30,6 +30,37 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Item'
+                  currencies:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Currency'
+              examples:
+                Example:
+                  value:
+                    items:
+                      - id: bronze-sword
+                        name: Bronze Sword
+                        price: 150
+                        currencyId: coin
+                        visible: true
+                      - id: gold-sword
+                        name: Gold Sword
+                        price: 450
+                        currencyId: coin
+                        visible: true
+                    currencies:
+                      - id: coin
+                        name: Coin
+                        icon: 'https://yourdomain.com/static/img/currency.jpg'
       tags:
         - Mobile API
     parameters: []
@@ -62,7 +93,20 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Item'
-            examples: {}
+            examples:
+              Example:
+                value:
+                  items:
+                    - id: bronze-sword
+                      name: Bronze Sword
+                      price: 150
+                      currencyId: coin
+                      visible: true
+                    - id: gold-sword
+                      name: Gold Sword
+                      price: 450
+                      currencyId: coin
+                      visible: true
       tags:
         - Configure API
     delete:
@@ -279,10 +323,10 @@ components:
           visible: true
         Example Item 2:
           id: gold-sword
-          name: Golden Sword
+          name: Gold Sword
           price: 450
           currencyId: coin
-          visible: false
+          visible: true
       properties:
         id:
           type: string
