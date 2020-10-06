@@ -3,6 +3,9 @@ info:
   title: Store
   version: '1.0'
   description: 'This is the IntelliGems Store API  '
+  contact:
+    name: IntelliGems
+    email: adam@intelligems.io
 servers:
   - url: 'https://dev.intelligems.io'
     description: Dev
@@ -10,8 +13,6 @@ paths:
   /store/items:
     get:
       summary: Get Items
-      tags:
-        - mobile
       operationId: get-store-items
       parameters:
         - schema:
@@ -25,10 +26,12 @@ paths:
             default: AUTH_TOKEN
           in: header
           name: Authorization
-      description: ''
+      description: List items for a user in your store
       responses:
         '200':
           description: OK
+      tags:
+        - Mobile API
     parameters: []
   /store/configure/items:
     post:
@@ -61,9 +64,9 @@ paths:
                     $ref: '#/components/schemas/Item'
             examples: {}
       tags:
-        - configure
+        - Configure API
     delete:
-      summary: ''
+      summary: Configure Items
       operationId: delete-store-configure-items
       parameters:
         - schema:
@@ -91,9 +94,11 @@ paths:
                 - id
         description: ''
       description: Deletes an item from the store.
+      tags:
+        - Configure API
   /store/configure/currencies:
     post:
-      summary: ''
+      summary: Configure Currencies
       operationId: post-store-configure-currency
       responses:
         '200':
@@ -119,9 +124,9 @@ paths:
                 currencies:
                   $ref: '#/components/schemas/Currency'
       tags:
-        - configure
+        - Configure API
     delete:
-      summary: ''
+      summary: Configure Currencies
       operationId: delete-store-configure-currency
       parameters:
         - schema:
@@ -149,10 +154,12 @@ paths:
               required:
                 - id
         description: ''
+      tags:
+        - Configure API
     parameters: []
   /store/configure/experiments:
     post:
-      summary: ''
+      summary: Configure Experiments & Variants
       operationId: post-store-configure-experiments
       responses:
         '200':
@@ -182,9 +189,9 @@ paths:
               required:
                 - experiments
       tags:
-        - configure
+        - Configure API
     delete:
-      summary: ''
+      summary: Configure Experiments
       operationId: delete-store-configure-experiments
       responses:
         '200':
@@ -211,6 +218,8 @@ paths:
                   type: string
               required:
                 - id
+      tags:
+        - Configure API
 components:
   schemas:
     Item:
@@ -236,6 +245,8 @@ components:
         - name
         - price
         - visible
+      x-tags:
+        - Models
     Currency:
       title: Currency
       type: object
@@ -255,20 +266,8 @@ components:
           id: coin
           name: Coins
           icon: 'https://yourdomain.com/static/img/currency.jpg'
-    Experiment:
-      title: Experiment
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        active:
-          type: boolean
-        variants:
-          type: array
-          items:
-            $ref: '#/components/schemas/Variant'
+      x-tags:
+        - Models
     Variant:
       title: Variant
       type: object
@@ -292,14 +291,29 @@ components:
                   - price
                   - name
               value:
-                type:
-                  - string
-                  - number
-                  - integer
+                type: string
+      x-examples: {}
+      x-tags:
+        - Models
       required:
         - name
         - percentage
-      x-examples: {}
+    Experiment:
+      title: Experiment
+      type: object
+      x-tags:
+        - Models
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
   securitySchemes:
     Authorization:
       name: Authorization
@@ -309,5 +323,5 @@ components:
 security:
   - Authorization: []
 tags:
-  - name: configure
-  - name: mobile
+  - name: Configure API
+  - name: Mobile API
