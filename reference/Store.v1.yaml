@@ -32,12 +32,12 @@ paths:
     parameters: []
   /store/configure/items:
     post:
-      summary: ''
+      summary: Configure Items
       operationId: post-store-configure-items
       responses:
         '200':
           description: OK
-      description: Configure items in the store.
+      description: Configure items in the store. updated
       parameters:
         - schema:
             type: string
