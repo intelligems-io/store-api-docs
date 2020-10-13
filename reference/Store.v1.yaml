@@ -253,30 +253,30 @@ paths:
                           overrides:
                             - itemId: bronze-sword
                               property: price
-                              value: 125
+                              value: "125"
                             - itemId: gold-sword
                               property: price
-                              value: 425
+                              value: "425"
                         - name: Higher Prices
                           percentage: 33
                           isControl: false
                           overrides:
                             - itemId: bronze-sword
                               property: price
-                              value: 175
+                              value: "175"
                             - itemId: gold-sword
                               property: price
-                              value: 475
+                              value: "475"
                         - name: Control
                           percentage: 34
                           isControl: true
                           overrides:
                             - itemId: bronze-sword
                               property: price
-                              value: 150
+                              value: "150"
                             - itemId: gold-sword
                               property: price
-                              value: 450
+                              value: "450"
       tags:
         - Configure API
     delete:
@@ -403,13 +403,7 @@ components:
                   - price
                   - name
               value:
-                type:
-                  - string
-                  - array
-                  - number
-                  - integer
-                  - boolean
-                  - 'null'
+                type: string
                 items: {}
       required:
         - name
