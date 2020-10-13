@@ -9,8 +9,8 @@ tags: [Getting Started]
 The IntelliGems API will enable you to run experiments in your virtual store. You can use these endpoints to configure your store and will also be used to render the items in your store.
 
 ### Mobile API Endpoints
-#### Get the items in the store
-`GET /store/items?userId=abc123` - This is the API your mobile app will use to get the items, prices, and currencies for a user in your store. If any AB tests are running, it will return just the relevant information for the requesting user. 
+#### Get the items in a collection
+`GET /collection/{collectionId}/items?userId=abc123` - This is the API your mobile app will use to get the items, prices, and currencies for a user in your store. If any AB tests are running, it will return just the relevant information for the requesting user. 
 
 Example response:
 ```json
