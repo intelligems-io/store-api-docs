@@ -51,12 +51,12 @@ paths:
                         name: Bronze Sword
                         price: 150
                         currencyId: coin
-                        visible: true
+                        isVisible: true
                       - id: gold-sword
                         name: Gold Sword
                         price: 450
                         currencyId: coin
-                        visible: true
+                        isVisible: true
                     currencies:
                       - id: coin
                         name: Coin
@@ -100,12 +100,12 @@ paths:
                       name: Bronze Sword
                       price: 150
                       currencyId: coin
-                      visible: true
+                      isVisible: true
                     - id: gold-sword
                       name: Gold Sword
                       price: 450
                       currencyId: coin
-                      visible: true
+                      isVisible: true
       tags:
         - Configure API
   /store/configure/currencies:
@@ -230,13 +230,13 @@ components:
           name: Bronze Sword
           price: 150
           currencyId: coin
-          visible: true
+          isVisible: true
         Example Item 2:
           id: gold-sword
           name: Gold Sword
           price: 450
           currencyId: coin
-          visible: true
+          isVisible: true
       properties:
         id:
           type: string
@@ -248,14 +248,13 @@ components:
         currencyId:
           type: string
           description: currency ID
-        visible:
+        isVisible:
           type: boolean
           description: 'default: true'
       required:
         - id
         - name
         - price
-        - visible
       x-tags:
         - Models
     Currency:
