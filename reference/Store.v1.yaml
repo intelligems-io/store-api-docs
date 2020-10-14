@@ -58,12 +58,11 @@ paths:
                         currencyId: coin
                         visible: true
                     currencies:
-                      - id: coin
+                      - slug: coin
                         name: Coin
                         icon: 'https://yourdomain.com/static/img/currency.jpg'
       tags:
         - Mobile API
-    parameters: []
   /store/configure/items:
     post:
       summary: Configure Items
@@ -166,14 +165,18 @@ paths:
               type: object
               properties:
                 currencies:
-                  $ref: '#/components/schemas/Currency'
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Currency'
+              required:
+                - currencies
             examples:
               Example:
                 value:
                   currencies:
-                    id: string
-                    name: string
-                    icon: 'https://yourdomain.com/static/img/currency.jpg'
+                    - slug: string
+                      name: string
+                      icon: 'https://yourdomain.com/static/img/currency.jpg'
       tags:
         - Configure API
     delete:
@@ -207,7 +210,6 @@ paths:
         description: ''
       tags:
         - Configure API
-    parameters: []
   /store/configure/experiments:
     post:
       summary: Configure Experiments & Variants
@@ -253,30 +255,30 @@ paths:
                           overrides:
                             - itemId: bronze-sword
                               property: price
-                              value: "125"
+                              value: '125'
                             - itemId: gold-sword
                               property: price
-                              value: "425"
+                              value: '425'
                         - name: Higher Prices
                           percentage: 33
                           isControl: false
                           overrides:
                             - itemId: bronze-sword
                               property: price
-                              value: "175"
+                              value: '175'
                             - itemId: gold-sword
                               property: price
-                              value: "475"
+                              value: '475'
                         - name: Control
                           percentage: 34
                           isControl: true
                           overrides:
                             - itemId: bronze-sword
                               property: price
-                              value: "150"
+                              value: '150'
                             - itemId: gold-sword
                               property: price
-                              value: "450"
+                              value: '450'
       tags:
         - Configure API
     delete:
@@ -351,8 +353,15 @@ components:
     Currency:
       title: Currency
       type: object
+      x-examples:
+        Example Currency:
+          slug: coin
+          name: Coins
+          icon: 'https://yourdomain.com/static/img/currency.jpg'
+      x-tags:
+        - Models
       properties:
-        id:
+        slug:
           type: string
         name:
           type: string
@@ -360,15 +369,8 @@ components:
           type: string
           example: 'https://yourdomain.com/static/img/currency.jpg'
       required:
-        - id
+        - slug
         - name
-      x-examples:
-        Example Currency:
-          id: coin
-          name: Coins
-          icon: 'https://yourdomain.com/static/img/currency.jpg'
-      x-tags:
-        - Models
     Variant:
       title: Variant
       type: object
