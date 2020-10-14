@@ -58,7 +58,7 @@ paths:
                         currencyId: coin
                         visible: true
                     currencies:
-                      - slug: coin
+                      - id: coin
                         name: Coin
                         icon: 'https://yourdomain.com/static/img/currency.jpg'
       tags:
@@ -108,37 +108,6 @@ paths:
                       visible: true
       tags:
         - Configure API
-    delete:
-      summary: Delete Items
-      operationId: delete-store-configure-items
-      parameters:
-        - schema:
-            type: string
-            default: AUTH_TOKEN
-          in: header
-          name: Authorization
-        - schema:
-            type: string
-            default: application/json
-          in: header
-          name: Content-Type
-      responses:
-        '200':
-          description: OK
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-              required:
-                - id
-        description: ''
-      description: Deletes an item from the store.
-      tags:
-        - Configure API
   /store/configure/currencies:
     post:
       summary: Configure Currencies
@@ -174,40 +143,9 @@ paths:
               Example:
                 value:
                   currencies:
-                    - slug: string
+                    - id: string
                       name: string
                       icon: 'https://yourdomain.com/static/img/currency.jpg'
-      tags:
-        - Configure API
-    delete:
-      summary: Delete Currencies
-      operationId: delete-store-configure-currency
-      parameters:
-        - schema:
-            type: string
-            default: AUTH_TOKEN
-          in: header
-          name: Authorization
-        - schema:
-            type: string
-            default: application/json
-          in: header
-          name: Content-Type
-      responses:
-        '200':
-          description: OK
-      description: 'Delete a currency. In order to delete, it cannot be referenced by any items.'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-              required:
-                - id
-        description: ''
       tags:
         - Configure API
   /store/configure/experiments:
@@ -281,36 +219,6 @@ paths:
                               value: '450'
       tags:
         - Configure API
-    delete:
-      summary: Delete Experiments
-      operationId: delete-store-configure-experiments
-      responses:
-        '200':
-          description: OK
-      description: Delete an experiment
-      parameters:
-        - schema:
-            type: string
-            default: AUTH_TOKEN
-          in: header
-          name: Authorization
-        - schema:
-            type: string
-            default: application/json
-          in: header
-          name: Content-Type
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-              required:
-                - id
-      tags:
-        - Configure API
 components:
   schemas:
     Item:
@@ -355,13 +263,13 @@ components:
       type: object
       x-examples:
         Example Currency:
-          slug: coin
+          id: coin
           name: Coins
           icon: 'https://yourdomain.com/static/img/currency.jpg'
       x-tags:
         - Models
       properties:
-        slug:
+        id:
           type: string
         name:
           type: string
@@ -369,7 +277,7 @@ components:
           type: string
           example: 'https://yourdomain.com/static/img/currency.jpg'
       required:
-        - slug
+        - id
         - name
     Variant:
       title: Variant
