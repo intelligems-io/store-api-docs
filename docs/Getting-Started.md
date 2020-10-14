@@ -21,14 +21,14 @@ Example response:
       "name": "Bronze Sword",
       "price": 150,
       "currencyId": "coin",
-      "visible": true
+      "isVisible": true
     },
     {
       "id": "gold-sword",
       "name": "Gold Sword",
       "price": 450,
       "currencyId": "coin",
-      "visible": true
+      "isVisible": true
     }
   ],
   "currencies": [
@@ -72,14 +72,14 @@ Example request body:
       "name": "Bronze Sword",
       "price": 150,
       "currencyId": "coin",
-      "visible": true
+      "isVisible": true
     },
     {
       "id": "gold-sword",
       "name": "Gold Sword",
       "price": 450,
       "currencyId": "coin",
-      "visible": true
+      "isVisible": true
     }
   ]
 }
