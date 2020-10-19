@@ -324,11 +324,9 @@ components:
       x-tags:
         - Models
       properties:
-        extId:
-          type: string
         name:
           type: string
-        active:
+        isActive:
           type: boolean
         variants:
           type: array
@@ -336,9 +334,8 @@ components:
             $ref: '#/components/schemas/Variant'
       x-examples:
         Example AB Test:
-          extId: ab-test-1
           name: Sword Price Test
-          active: true
+          isActive: true
           variants:
             - name: Lower Prices
               percentage: 33

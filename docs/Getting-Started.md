@@ -17,22 +17,25 @@ Example response:
 {
   "items": [
     {
+      "id": "60b2f0ee-cff7-4c97-8312-546df9d5cbe5",
       "extId": "bronze-sword",
       "name": "Bronze Sword",
       "price": 150,
-      "currencyId": "coin",
+      "currencyId": "ad20def9-8593-4c1c-8b10-28caa0029c18",
       "isVisible": true
     },
     {
+      "id": "53d76c0c-7a77-4013-94f2-c86a20c59530",
       "extId": "gold-sword",
       "name": "Gold Sword",
       "price": 450,
-      "currencyId": "coin",
+      "currencyId": "ad20def9-8593-4c1c-8b10-28caa0029c18",
       "isVisible": true
     }
   ],
   "currencies": [
     {
+      "id": "ad20def9-8593-4c1c-8b10-28caa0029c18",
       "extId": "coin",
       "name": "Coin",
       "icon": "https://yourdomain.com/static/img/currency.jpg"
@@ -49,7 +52,7 @@ Example response:
 `POST /store/configure/currencies` - Add or change currencies to the store.
 
 Example request body:
-``` json
+```json
 {
   "currencies": {
     "extId": "coin",
@@ -71,17 +74,43 @@ Example request body:
       "extId": "bronze-sword",
       "name": "Bronze Sword",
       "price": 150,
-      "currencyId": "coin",
+      "currencyId": "ad20def9-8593-4c1c-8b10-28caa0029c18",
       "isVisible": true
     },
     {
       "extId": "gold-sword",
       "name": "Gold Sword",
       "price": 450,
-      "currencyId": "coin",
+      "currencyId": "ad20def9-8593-4c1c-8b10-28caa0029c18",
       "isVisible": true
     }
   ]
+}
+```
+
+Example response body:
+```json
+{
+  "created": [
+    {
+      "id": "60b2f0ee-cff7-4c97-8312-546df9d5cbe5",
+      "extId": "bronze-sword",
+      "name": "Bronze Sword",
+      "price": 150,
+      "currencyId": "ad20def9-8593-4c1c-8b10-28caa0029c18",
+      "isVisible": true
+    },
+    {
+      "id": "53d76c0c-7a77-4013-94f2-c86a20c59530",
+      "extId": "gold-sword",
+      "name": "Gold Sword",
+      "price": 450,
+      "currencyId": "ad20def9-8593-4c1c-8b10-28caa0029c18",
+      "isVisible": true
+    }
+  ],
+  "updated": [],
+  "failed": []
 }
 ```
 
@@ -92,9 +121,8 @@ AB Tests define a test where different groups of users will see different conten
 Here is an example AB test configuration:
 ```json
 {
-  "extId": "ab-test-1",
   "name": "Sword Price Test",
-  "active": true,
+  "isActive": true,
   "variants": [
     {
       "name": "Lower Prices",
@@ -102,12 +130,12 @@ Here is an example AB test configuration:
       "isControl": false,
       "overrides": [
         {
-          "itemId": "bronze-sword",
+          "itemId": "60b2f0ee-cff7-4c97-8312-546df9d5cbe5",
           "property": "price",
           "value": 125
         },
         {
-          "itemId": "gold-sword",
+          "itemId": "53d76c0c-7a77-4013-94f2-c86a20c59530",
           "property": "price",
           "value": 425
         }
@@ -119,12 +147,12 @@ Here is an example AB test configuration:
       "isControl": false,
       "overrides": [
         {
-          "itemId": "bronze-sword",
+          "itemId": "60b2f0ee-cff7-4c97-8312-546df9d5cbe5",
           "property": "price",
           "value": 175
         },
         {
-          "itemId": "gold-sword",
+          "itemId": "53d76c0c-7a77-4013-94f2-c86a20c59530",
           "property": "price",
           "value": 475
         }
@@ -136,12 +164,12 @@ Here is an example AB test configuration:
       "isControl": true,
       "overrides": [
         {
-          "itemId": "bronze-sword",
+          "itemId": "60b2f0ee-cff7-4c97-8312-546df9d5cbe5",
           "property": "price",
           "value": 150
         },
         {
-          "itemId": "gold-sword",
+          "itemId": "53d76c0c-7a77-4013-94f2-c86a20c59530",
           "property": "price",
           "value": 450
         }
