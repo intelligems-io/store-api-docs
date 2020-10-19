@@ -17,14 +17,14 @@ Example response:
 {
   "items": [
     {
-      "id": "bronze-sword",
+      "extId": "bronze-sword",
       "name": "Bronze Sword",
       "price": 150,
       "currencyId": "coin",
       "isVisible": true
     },
     {
-      "id": "gold-sword",
+      "extId": "gold-sword",
       "name": "Gold Sword",
       "price": 450,
       "currencyId": "coin",
@@ -33,7 +33,7 @@ Example response:
   ],
   "currencies": [
     {
-      "id": "coin",
+      "extId": "coin",
       "name": "Coin",
       "icon": "https://yourdomain.com/static/img/currency.jpg"
     }
@@ -52,7 +52,7 @@ Example request body:
 ``` json
 {
   "currencies": {
-    "id": "coin",
+    "extId": "coin",
     "name": "Coin",
     "icon": "https://yourdomain.com/static/img/currency.jpg"
   }
@@ -68,14 +68,14 @@ Example request body:
 {
   "items": [
     {
-      "id": "bronze-sword",
+      "extId": "bronze-sword",
       "name": "Bronze Sword",
       "price": 150,
       "currencyId": "coin",
       "isVisible": true
     },
     {
-      "id": "gold-sword",
+      "extId": "gold-sword",
       "name": "Gold Sword",
       "price": 450,
       "currencyId": "coin",
@@ -92,7 +92,7 @@ AB Tests define a test where different groups of users will see different conten
 Here is an example AB test configuration:
 ```json
 {
-  "id": "ab-test-1",
+  "extId": "ab-test-1",
   "name": "Sword Price Test",
   "active": true,
   "variants": [

@@ -47,18 +47,18 @@ paths:
                 Example:
                   value:
                     items:
-                      - id: bronze-sword
+                      - extId: bronze-sword
                         name: Bronze Sword
                         price: 150
                         currencyId: coin
                         isVisible: true
-                      - id: gold-sword
+                      - extId: gold-sword
                         name: Gold Sword
                         price: 450
                         currencyId: coin
                         isVisible: true
                     currencies:
-                      - id: coin
+                      - extId: coin
                         name: Coin
                         icon: 'https://yourdomain.com/static/img/currency.jpg'
       tags:
@@ -96,12 +96,12 @@ paths:
               Example:
                 value:
                   items:
-                    - id: bronze-sword
+                    - extId: bronze-sword
                       name: Bronze Sword
                       price: 150
                       currencyId: coin
                       isVisible: true
-                    - id: gold-sword
+                    - extId: gold-sword
                       name: Gold Sword
                       price: 450
                       currencyId: coin
@@ -143,7 +143,7 @@ paths:
               Example:
                 value:
                   currencies:
-                    - id: string
+                    - extId: string
                       name: string
                       icon: 'https://yourdomain.com/static/img/currency.jpg'
       tags:
@@ -183,7 +183,7 @@ paths:
               Example:
                 value:
                   experiments:
-                    - id: ab-test-1
+                    - extId: ab-test-1
                       name: Sword Price Test
                       active: true
                       variants:
@@ -226,20 +226,21 @@ components:
       type: object
       x-examples:
         Example Item 1:
-          id: bronze-sword
+          extId: bronze-sword
           name: Bronze Sword
           price: 150
           currencyId: coin
           isVisible: true
         Example Item 2:
-          id: gold-sword
+          extId: gold-sword
           name: Gold Sword
           price: 450
           currencyId: coin
           isVisible: true
       properties:
-        id:
+        extId:
           type: string
+          description: the ID you will reference
         name:
           type: string
         price:
@@ -252,7 +253,7 @@ components:
           type: boolean
           description: 'default: true'
       required:
-        - id
+        - extId
         - name
         - price
       x-tags:
@@ -262,13 +263,13 @@ components:
       type: object
       x-examples:
         Example Currency:
-          id: coin
+          extId: coin
           name: Coins
           icon: 'https://yourdomain.com/static/img/currency.jpg'
       x-tags:
         - Models
       properties:
-        id:
+        extId:
           type: string
         name:
           type: string
@@ -276,7 +277,7 @@ components:
           type: string
           example: 'https://yourdomain.com/static/img/currency.jpg'
       required:
-        - id
+        - extId
         - name
     Variant:
       title: Variant
@@ -323,7 +324,7 @@ components:
       x-tags:
         - Models
       properties:
-        id:
+        extId:
           type: string
         name:
           type: string
@@ -335,7 +336,7 @@ components:
             $ref: '#/components/schemas/Variant'
       x-examples:
         Example AB Test:
-          id: ab-test-1
+          extId: ab-test-1
           name: Sword Price Test
           active: true
           variants:
