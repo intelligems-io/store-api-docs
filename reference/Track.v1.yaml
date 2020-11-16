@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: Track
+  version: '1.0'
+  description: |-
+    The track endpoint is how you will track conversion events. Conversion must be tracked by IntelliGems in order to 
+    Other types of events can also be tracked.
+servers:
+  - url: 'https://dev.intelligems.io'
+    description: Dev
+paths:
+  /track:
+    post:
+      summary: User Event
+      tags:
+        - Track
+      responses: {}
+      operationId: post-track
+      security:
+        - Authorization: []
+      description: |-
+        For tracking user events of any kind. Primarily used for conversion events triggered when users purchase or consume items in your app.
+
+        You may send any additional fields in the body and they will be tracked by IntelliGems.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Event.v1.yaml
+            examples:
+              example-1:
+                value:
+                  id: abc-234-xyz
+                  userId: some-user
+                  eventType: Conversion
+                  eventTs: '2020-11-16 10:30:15.000'
+                  purchaseItem: gold-coins
+                  purchaseAmount: 100
+                  costAmount: 2.5
+                  costCurrency: rubies
+                  appVersion: 1.2.3
+                  appId: app-id
+      parameters: []
+  '/track/{organization_id}':
+    parameters:
+      - schema:
+          type: string
+        name: organization_id
+        in: path
+        required: true
+    post:
+      summary: Track User Event (External)
+      tags:
+        - Track
+      responses: {}
+      operationId: post-track-organization_id
+      description: The purpose of this endpoint is for integrating a 3rd Party event site with an HTTP event integration.
+components:
+  schemas: {}
+  securitySchemes:
+    Authorization:
+      name: Authorization
+      type: apiKey
+      in: header
