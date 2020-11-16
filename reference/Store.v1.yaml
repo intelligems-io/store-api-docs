@@ -237,6 +237,15 @@ components:
           price: 450
           currencyId: coin
           isVisible: true
+        Buy Coins Example:
+          extId: 1-dollar-coin-package
+          name: 100 Gold Coins
+          price: 1
+          currencyId: USD
+          isVisible: true
+          quantity: 100
+      x-tags:
+        - Models
       properties:
         extId:
           type: string
@@ -252,12 +261,12 @@ components:
         isVisible:
           type: boolean
           description: 'default: true'
+        quantity:
+          type: number
       required:
         - extId
         - name
         - price
-      x-tags:
-        - Models
     Currency:
       title: Currency
       type: object
