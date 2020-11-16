@@ -3,6 +3,9 @@ info:
   title: Store
   version: '1.0'
   description: 'This is the IntelliGems Store API  '
+  contact:
+    name: IntelliGems
+    email: adam@intelligems.io
 servers:
   - url: 'https://dev.intelligems.io'
     description: Dev
@@ -10,8 +13,6 @@ paths:
   /store/items:
     get:
       summary: Get Items
-      tags:
-        - mobile
       operationId: get-store-items
       parameters:
         - schema:
@@ -25,19 +26,51 @@ paths:
             default: AUTH_TOKEN
           in: header
           name: Authorization
-      description: ''
+      description: List items for a user in your store
       responses:
         '200':
           description: OK
-    parameters: []
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Item'
+                  currencies:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Currency'
+              examples:
+                Example:
+                  value:
+                    items:
+                      - extId: bronze-sword
+                        name: Bronze Sword
+                        price: 150
+                        currencyId: coin
+                        isVisible: true
+                      - extId: gold-sword
+                        name: Gold Sword
+                        price: 450
+                        currencyId: coin
+                        isVisible: true
+                    currencies:
+                      - extId: coin
+                        name: Coin
+                        icon: 'https://yourdomain.com/static/img/currency.jpg'
+      tags:
+        - Mobile API
   /store/configure/items:
     post:
-      summary: ''
+      summary: Configure Items
       operationId: post-store-configure-items
       responses:
         '200':
           description: OK
-      description: Configure items in the store.
+      description: Configure items in the store. updated
       parameters:
         - schema:
             type: string
@@ -59,41 +92,25 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Item'
-            examples: {}
+            examples:
+              Example:
+                value:
+                  items:
+                    - extId: bronze-sword
+                      name: Bronze Sword
+                      price: 150
+                      currencyId: coin
+                      isVisible: true
+                    - extId: gold-sword
+                      name: Gold Sword
+                      price: 450
+                      currencyId: coin
+                      isVisible: true
       tags:
-        - configure
-    delete:
-      summary: ''
-      operationId: delete-store-configure-items
-      parameters:
-        - schema:
-            type: string
-            default: AUTH_TOKEN
-          in: header
-          name: Authorization
-        - schema:
-            type: string
-            default: application/json
-          in: header
-          name: Content-Type
-      responses:
-        '200':
-          description: OK
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-              required:
-                - id
-        description: ''
-      description: Deletes an item from the store.
+        - Configure API
   /store/configure/currencies:
     post:
-      summary: ''
+      summary: Configure Currencies
       operationId: post-store-configure-currency
       responses:
         '200':
@@ -117,42 +134,23 @@ paths:
               type: object
               properties:
                 currencies:
-                  $ref: '#/components/schemas/Currency'
-      tags:
-        - configure
-    delete:
-      summary: ''
-      operationId: delete-store-configure-currency
-      parameters:
-        - schema:
-            type: string
-            default: AUTH_TOKEN
-          in: header
-          name: Authorization
-        - schema:
-            type: string
-            default: application/json
-          in: header
-          name: Content-Type
-      responses:
-        '200':
-          description: OK
-      description: 'Delete a currency. In order to delete, it cannot be referenced by any items.'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Currency'
               required:
-                - id
-        description: ''
-    parameters: []
+                - currencies
+            examples:
+              Example:
+                value:
+                  currencies:
+                    - extId: string
+                      name: string
+                      icon: 'https://yourdomain.com/static/img/currency.jpg'
+      tags:
+        - Configure API
   /store/configure/experiments:
     post:
-      summary: ''
+      summary: Configure Experiments & Variants
       operationId: post-store-configure-experiments
       responses:
         '200':
@@ -181,45 +179,68 @@ paths:
                     $ref: '#/components/schemas/Experiment'
               required:
                 - experiments
+            examples:
+              Example:
+                value:
+                  experiments:
+                    - extId: ab-test-1
+                      name: Sword Price Test
+                      active: true
+                      variants:
+                        - name: Lower Prices
+                          percentage: 33
+                          isControl: false
+                          overrides:
+                            - itemId: bronze-sword
+                              property: price
+                              value: '125'
+                            - itemId: gold-sword
+                              property: price
+                              value: '425'
+                        - name: Higher Prices
+                          percentage: 33
+                          isControl: false
+                          overrides:
+                            - itemId: bronze-sword
+                              property: price
+                              value: '175'
+                            - itemId: gold-sword
+                              property: price
+                              value: '475'
+                        - name: Control
+                          percentage: 34
+                          isControl: true
+                          overrides:
+                            - itemId: bronze-sword
+                              property: price
+                              value: '150'
+                            - itemId: gold-sword
+                              property: price
+                              value: '450'
       tags:
-        - configure
-    delete:
-      summary: ''
-      operationId: delete-store-configure-experiments
-      responses:
-        '200':
-          description: OK
-      description: Delete an experiment
-      parameters:
-        - schema:
-            type: string
-            default: AUTH_TOKEN
-          in: header
-          name: Authorization
-        - schema:
-            type: string
-            default: application/json
-          in: header
-          name: Content-Type
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-              required:
-                - id
+        - Configure API
 components:
   schemas:
     Item:
       title: Item
       type: object
-      x-examples: {}
+      x-examples:
+        Example Item 1:
+          extId: bronze-sword
+          name: Bronze Sword
+          price: 150
+          currencyId: coin
+          isVisible: true
+        Example Item 2:
+          extId: gold-sword
+          name: Gold Sword
+          price: 450
+          currencyId: coin
+          isVisible: true
       properties:
-        id:
+        extId:
           type: string
+          description: the ID you will reference
         name:
           type: string
         price:
@@ -228,19 +249,27 @@ components:
         currencyId:
           type: string
           description: currency ID
-        visible:
+        isVisible:
           type: boolean
           description: 'default: true'
       required:
-        - id
+        - extId
         - name
         - price
-        - visible
+      x-tags:
+        - Models
     Currency:
       title: Currency
       type: object
+      x-examples:
+        Example Currency:
+          extId: coin
+          name: Coins
+          icon: 'https://yourdomain.com/static/img/currency.jpg'
+      x-tags:
+        - Models
       properties:
-        id:
+        extId:
           type: string
         name:
           type: string
@@ -248,30 +277,22 @@ components:
           type: string
           example: 'https://yourdomain.com/static/img/currency.jpg'
       required:
-        - id
+        - extId
         - name
-      x-examples:
-        Example Currency:
-          id: coin
-          name: Coins
-          icon: 'https://yourdomain.com/static/img/currency.jpg'
-    Experiment:
-      title: Experiment
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        active:
-          type: boolean
-        variants:
-          type: array
-          items:
-            $ref: '#/components/schemas/Variant'
     Variant:
       title: Variant
       type: object
+      x-examples:
+        Variant A:
+          name: Variant A
+          percentage: 33
+          isControl: false
+          overrides:
+            - itemId: bronze-sword
+              property: price
+              value: 125
+      x-tags:
+        - Models
       properties:
         name:
           type: string
@@ -292,14 +313,60 @@ components:
                   - price
                   - name
               value:
-                type:
-                  - string
-                  - number
-                  - integer
+                type: string
+                items: {}
       required:
         - name
         - percentage
-      x-examples: {}
+    Experiment:
+      title: Experiment
+      type: object
+      x-tags:
+        - Models
+      properties:
+        name:
+          type: string
+        isActive:
+          type: boolean
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+      x-examples:
+        Example AB Test:
+          name: Sword Price Test
+          isActive: true
+          variants:
+            - name: Lower Prices
+              percentage: 33
+              isControl: false
+              overrides:
+                - itemId: bronze-sword
+                  property: price
+                  value: 125
+                - itemId: gold-sword
+                  property: price
+                  value: 425
+            - name: Higher Prices
+              percentage: 33
+              isControl: false
+              overrides:
+                - itemId: bronze-sword
+                  property: price
+                  value: 175
+                - itemId: gold-sword
+                  property: price
+                  value: 475
+            - name: Control
+              percentage: 34
+              isControl: true
+              overrides:
+                - itemId: bronze-sword
+                  property: price
+                  value: 150
+                - itemId: gold-sword
+                  property: price
+                  value: 450
   securitySchemes:
     Authorization:
       name: Authorization
@@ -309,5 +376,5 @@ components:
 security:
   - Authorization: []
 tags:
-  - name: configure
-  - name: mobile
+  - name: Configure API
+  - name: Mobile API
