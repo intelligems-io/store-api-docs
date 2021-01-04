@@ -6,7 +6,7 @@ tags: [Getting Started]
 
 ## Overview
 
-The IntelliGems API enables running experiments. For our virtual-store specific api, check out the [Intelli-Store API docs](../Intelli-Store.md).
+The IntelliGems API enables running experiments. For our virtual-store specific api, check out the [Intelli-Store API docs](./Intelli-Store.md).
 
 ### Key Concepts
 With IntelliGems, you run A/B tests, which we call `experiments`. You can configure experiments through our dashboard or programmatically through our API. 
