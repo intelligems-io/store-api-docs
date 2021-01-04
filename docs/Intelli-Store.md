@@ -2,7 +2,7 @@
 tags: [Store, Intelli-Store]
 ---
 
-# Getting Started with IntelliGems Store API
+# IntelliGems Store API
 
 ## Overview
 
