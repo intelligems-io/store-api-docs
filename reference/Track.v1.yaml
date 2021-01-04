@@ -26,7 +26,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/Event.v1.yaml
+              $ref: '#/components/schemas/Event'
             examples:
               example-1:
                 value:
@@ -56,7 +56,59 @@ paths:
       operationId: post-track-organization_id
       description: The purpose of this endpoint is for integrating a 3rd Party event site with an HTTP event integration.
 components:
-  schemas: {}
+  schemas:
+    Event:
+      description: |-
+        An event must have a userId and an eventType.
+         - `eventType` can be whatever you want, but there must be a `conversion` event for tracking purposes.
+         - `userId` must correspond with the userId in the Store api.
+         -
+      type: object
+      x-examples:
+        Conversion Event:
+          id: abc-234-xyz
+          userId: some-user
+          eventType: Conversion
+          eventTs: '2020-11-16 10:30:15.000'
+          purchaseItem: gold-coins
+          purchaseAmount: 100
+          costAmount: 2.5
+          costCurrency: rubies
+          appVersion: 1.2.3
+          appId: app-id
+      properties:
+        id:
+          type: string
+          minLength: 1
+        userId:
+          type: string
+          minLength: 1
+        eventType:
+          type: string
+          minLength: 1
+        eventTs:
+          type: string
+          minLength: 1
+        purchaseItem:
+          type: string
+          minLength: 1
+        purchaseAmount:
+          type: number
+        costAmount:
+          type: number
+        costCurrency:
+          type: string
+          minLength: 1
+        appVersion:
+          type: string
+          minLength: 1
+        appId:
+          type: string
+          minLength: 1
+      required:
+        - userId
+        - eventType
+        - eventTs
   securitySchemes:
     Authorization:
       name: Authorization
