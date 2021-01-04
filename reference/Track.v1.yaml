@@ -64,6 +64,8 @@ components:
          - `userId` must correspond with the userId in the Store api.
          -
       type: object
+      x-tags:
+        - Models
       x-examples:
         Conversion Event:
           id: abc-234-xyz
