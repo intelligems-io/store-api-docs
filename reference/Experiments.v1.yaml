@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Experiment API
+  version: '1.0'
+  license:
+    name: MIT
+  contact:
+    name: IntelliGems
+    url: intelligems.io
+    email: info@intelligems.io
+servers:
+  - url: 'https://dev.intelligems.io'
+paths:
+  /experiments:
+    get:
+      summary: Experiments
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Variant'
+              examples:
+                Example:
+                  value:
+                    - id: promotion-experiment
+                      variant:
+                        id: discount10
+                        custom:
+                          discount: 10
+                        isControl: false
+                        percentage: 30
+                      name: Promotion Experiment
+                      description: Running a discount for new users.
+      operationId: get-experiments
+      description: Get all experiments for a given user
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: userId
+          description: User ID for the experiments
+          required: true
+      security:
+        - Authorization: []
+    parameters: []
+components:
+  schemas:
+    Variant:
+      title: Variant
+      type: object
+      properties:
+        id:
+          type: string
+          example: discount10
+        isControl:
+          type: boolean
+        percentage:
+          type: number
+          example: 30
+        custom:
+          type: object
+      x-examples:
+        Example:
+          id: discount10
+          isControl: true
+          percentage: 30
+          custom:
+            discount: 10
+    Experiment-Response:
+      title: Experiment-Response
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        variant:
+          $ref: '#/components/schemas/Variant'
+      description: Experiment Response
+      x-examples:
+        Example:
+          id: promotion-experiment
+          name: Promotion Experiment
+          description: Discount for new users.
+          variant:
+            id: discount10
+            isControl: true
+            percentage: 30
+            custom:
+              discount: 10
+  securitySchemes:
+    Authorization:
+      name: Authorization
+      type: apiKey
+      in: header
