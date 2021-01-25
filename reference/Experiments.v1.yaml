@@ -23,7 +23,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Variant'
+                  $ref: '#/components/schemas/Experiment-SingleVariant'
               examples:
                 Example:
                   value:
@@ -48,11 +48,115 @@ paths:
       security:
         - Authorization: []
     parameters: []
+  /configure/experiments:
+    post:
+      summary: Configure New Experiments
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  failed:
+                    type: array
+                    items:
+                      type: object
+                  created:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Experiment-MultiVariant'
+              examples:
+                Example:
+                  value:
+                    failed: []
+                    created:
+                      - id: c613a511-3bc0-4630-8ac0-10f5d6887e4d
+                        name: Markup Experiment
+                        description: Running different markups for new users.
+                        variants:
+                          - name: Control
+                            percentage: 40
+                            is_control: true
+                            custom:
+                              markup: 0.8
+                            experiment_id: c613a511-3bc0-4630-8ac0-10f5d6887e4d
+                            id: 44d2f14b-d880-439c-9b86-f002a868860e
+                            last_update_ts: 1611589944.203
+                            created_at_ts: 1611589944.203
+                            organization_id: 4d481249-33b2-4e5e-a873-00b563935870
+                            is_deleted: false
+                          - name: 60% Markup
+                            percentage: 30
+                            is_control: false
+                            custom:
+                              markup: 0.6
+                            experiment_id: c613a511-3bc0-4630-8ac0-10f5d6887e4d
+                            id: 8823de2a-65fd-4b6c-a518-7513ead2b146
+                            last_update_ts: 1611589944.203
+                            created_at_ts: 1611589944.203
+                            organization_id: 4d481249-33b2-4e5e-a873-00b563935870
+                            is_deleted: false
+                          - name: 100% Markup
+                            percentage: 30
+                            is_control: false
+                            custom:
+                              markup: 1
+                            experiment_id: c613a511-3bc0-4630-8ac0-10f5d6887e4d
+                            id: b63639b7-d0cf-4ed6-95cd-49e81bf6d20d
+                            last_update_ts: 1611589944.204
+                            created_at_ts: 1611589944.204
+                            organization_id: 4d481249-33b2-4e5e-a873-00b563935870
+                            is_deleted: false
+      operationId: post-configure-experiments
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                experiments:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Experiment-MultiVariant'
+            examples:
+              Example:
+                value:
+                  experiments:
+                    - id: promotion-experiment
+                      variants:
+                        - name: 60% Markup
+                          custom:
+                            markup: 0.6
+                          isControl: false
+                          percentage: 30
+                        - name: Control
+                          custom:
+                            markup: 0.8
+                          isControl: true
+                          percentage: 40
+                        - name: 100% Markup
+                          custom:
+                            markup: 1
+                          isControl: false
+                          percentage: 30
+                      name: Markup Experiment
+                      description: Running different markups for new users.
 components:
   schemas:
     Variant:
       title: Variant
       type: object
+      x-examples:
+        Example:
+          id: discount10
+          isControl: true
+          percentage: 30
+          custom:
+            discount: 10
       properties:
         id:
           type: string
@@ -64,15 +168,12 @@ components:
           example: 30
         custom:
           type: object
-      x-examples:
-        Example:
-          id: discount10
-          isControl: true
-          percentage: 30
-          custom:
-            discount: 10
-    Experiment-Response:
-      title: Experiment-Response
+        description:
+          type: string
+        name:
+          type: string
+    Experiment-SingleVariant:
+      title: Experiment-SingleVariant
       type: object
       properties:
         id:
@@ -95,6 +196,22 @@ components:
             percentage: 30
             custom:
               discount: 10
+    Experiment-MultiVariant:
+      title: Experiment-MultiVariant
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variant'
+        '':
+          type: string
   securitySchemes:
     Authorization:
       name: Authorization
